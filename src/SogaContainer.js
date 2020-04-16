@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {SOCKET_EMIT_BROADCAST_GAMESTATE, SOCKET_ON_SOCKETID, SOCKET_ON_UPDATE_GAMESTATE} from './resources/properties';
 
-const WithPhob = (AppComponent, socketConnect) =>
-    function Phob(props) {
+const WithSoga = (AppComponent, socketConnect) =>
+    function Soga(props) {
         const [socket, setSocket] = useState(socketConnect);
         const [socketId, setSocketId] = useState('');
         const [gameState, setGameState] = useState({teams: [[], []]});
@@ -57,4 +57,4 @@ const WithPhob = (AppComponent, socketConnect) =>
         );
     };
 
-export default WithPhob;
+export default WithSoga;
