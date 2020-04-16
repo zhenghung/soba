@@ -1,1 +1,0 @@
-export WithSoga from './SogaContainer';
