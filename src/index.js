@@ -1,1 +1,1 @@
-export WithPhob from './SogaContainer';
+export WithSoga from './SogaContainer';
