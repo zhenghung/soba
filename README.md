@@ -1,2 +1,2 @@
-## SOGA
-Socket.io-based Game framework
+## SOBA
+Socket.io-based Board game framework
