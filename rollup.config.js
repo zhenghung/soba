@@ -1,4 +1,3 @@
-import uglify from 'rollup-plugin-uglify';
 import babel from 'rollup-plugin-babel';
 
 const config = {
@@ -8,7 +7,6 @@ const config = {
         babel({
             exclude: 'node_modules/**',
         }),
-        uglify(),
     ],
     output: {
         format: 'umd',
