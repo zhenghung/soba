@@ -25,6 +25,6 @@
   "scripts": {
     "build": "rollup -c -o dist/index.min.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "npm run build"
+    "prepare": "npm run build"
   }
 }
