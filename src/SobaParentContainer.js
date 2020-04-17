@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {SOCKET_EMIT_BROADCAST_GAMESTATE, SOCKET_ON_SOCKETID, SOCKET_ON_UPDATE_GAMESTATE} from './resources/properties';
 
-export const WithSoga = (AppComponent, socketConnect) =>
-    function Soga(props) {
+export const WithSoba = (AppComponent, socketConnect) =>
+    function Soba(props) {
         const [socket, setSocket] = useState(socketConnect);
         const [socketId, setSocketId] = useState('');
         const [gameState, setGameState] = useState({teams: [[], []]});
