@@ -1,5 +1,5 @@
-import {WithSoba} from './SobaParentContainer';
+import SobaParentContainer from './SobaParentContainer';
 
 export {
-    WithSoba
+    SobaParentContainer
 };
