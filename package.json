@@ -12,28 +12,20 @@
     "type": "git",
     "url": "https://github.com/zhenghung/soba.git"
   },
-  "main": "src/index.js",
-  "dependencies": {},
+  "main": "dist/index.min.js",
   "devDependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
-  },
-  "peerDependencies": {
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
-  },
-  "release": {
-    "plugins": [],
-    "branch": "master"
+    "babel-core": "^6.26.3",
+    "babel-preset-react": "^6.24.1",
+    "classnames": "^2.2.5",
+    "postcss-modules": "^1.1.0",
+    "react": "^16.3.2",
+    "rollup": "^0.58.2",
+    "rollup-plugin-babel": "^3.0.4",
+    "rollup-plugin-postcss": "^1.6.1",
+    "rollup-plugin-uglify": "^3.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "rollup -c -o dist/index.min.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
