@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {SOCKET_EMIT_BROADCAST_GAMESTATE, SOCKET_ON_SOCKETID, SOCKET_ON_UPDATE_GAMESTATE} from './resources/properties';
 
-const SobaParentContainer = (AppComponent, socketConnect) =>
-    function SobaParent(props) {
+export function SobaParentContainer(AppComponent, socketConnect) {
+    return function SobaParent(props) {
         const [socket, setSocket] = useState(socketConnect);
         const [socketId, setSocketId] = useState('');
         const [gameState, setGameState] = useState({teams: [[], []]});
@@ -56,5 +56,4 @@ const SobaParentContainer = (AppComponent, socketConnect) =>
             />
         );
     };
-
-export default SobaParentContainer;
+}
