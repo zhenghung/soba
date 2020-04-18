@@ -10,7 +10,7 @@ export function SobaParentContainer(AppComponent, socketConnect) {
     return function SobaContainer(props) {
         const [socket, setSocket] = useState(socketConnect);
         const [socketId, setSocketId] = useState('');
-        const [gameState, setGameState] = useState({teams: [[], []]});
+        const [gameState, setGameState] = useState({});
 
         /** Request for a SocketId from server upon load*/
         useEffect(() => {
