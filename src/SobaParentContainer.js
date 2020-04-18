@@ -1,11 +1,23 @@
 import React, {useEffect, useState} from 'react';
-import {SOCKET_EMIT_BROADCAST_GAMESTATE, SOCKET_ON_SOCKETID, SOCKET_ON_UPDATE_GAMESTATE} from './resources/properties';
+import {
+    SOCKET_EMIT_BROADCAST_GAMESTATE,
+    SOCKET_EMIT_SOCKETID,
+    SOCKET_ON_SOCKETID,
+    SOCKET_ON_UPDATE_GAMESTATE,
+} from './resources/properties';
 
 export function SobaParentContainer(AppComponent, socketConnect) {
-    return function SobaParent(props) {
+    return function SobaContainer(props) {
         const [socket, setSocket] = useState(socketConnect);
         const [socketId, setSocketId] = useState('');
         const [gameState, setGameState] = useState({teams: [[], []]});
+
+        /** Request for a SocketId from server upon load*/
+        useEffect(() => {
+            socket.emit(SOCKET_EMIT_SOCKETID, {}, (error) => {
+                if (error) alert(error);
+            });
+        }, []);
 
         /**
          * Broadcasts gameState updates so that all connected clients are in sync
