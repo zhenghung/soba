@@ -4,15 +4,15 @@ import {
     SOCKET_EMIT_SOCKETID,
     SOCKET_ON_SOCKETID,
     SOCKET_ON_UPDATE_GAMESTATE,
-} from './resources/properties';
+} from '../resources/properties';
 
-export function SobaParentContainer(AppComponent, socketConnect) {
-    return function SobaContainer(props) {
+export function SobaParentContainer(AppComponent, socketConnect, config={}) {
+    return function SobaBowl(props) {
         const [socket, setSocket] = useState(socketConnect);
         const [socketId, setSocketId] = useState('');
         const [gameState, setGameState] = useState({});
 
-        /** Request for a SocketId from server upon load*/
+        /** Request for a SocketId from server upon load, check connection*/
         useEffect(() => {
             socket.emit(SOCKET_EMIT_SOCKETID, {}, (error) => {
                 if (error) alert(error);

@@ -1,4 +1,4 @@
-import {SobaParentContainer} from './SobaParentContainer';
+import {SobaParentContainer} from './components/SobaParentContainer';
 
 export {
     SobaParentContainer
