@@ -18,7 +18,7 @@ Socket.io-Based web game framework
 ### Installation and Quickstart
 1. Install the npm modules in your React project directory.
     ```
-    $ npm install --save git+https://git@github.com/zhenghung/soba-game.git socket.io-client
+    $ npm install --save soba-game socket.io-client
     ```
 2. Import SobaParentContainer in your highest-level component (e.g. App.js), as well as `socket.io-client`.
     ```
