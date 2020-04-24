@@ -1,7 +1,8 @@
 {
   "name": "soba-game",
-  "version": "0.1.0",
   "description": "A wrapper for React-based games using Socket.io",
+  "version": "1.0.0",
+  "main": "dist/index.min.js",
   "author": "Zheng Hung Chuah",
   "homepage": "https://github.com/zhenghung/soba-game",
   "bugs": {
@@ -12,7 +13,6 @@
     "type": "git",
     "url": "https://github.com/zhenghung/soba-game.git"
   },
-  "main": "dist/index.min.js",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
