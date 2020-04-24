@@ -1,5 +1,5 @@
-# SOBA
-Socket.io-based Board game framework
+# SoBa
+Socket.io-Based web game framework
 
 ### Content
 1. Example projects
@@ -10,7 +10,7 @@ Socket.io-based Board game framework
 
 ### Example projects
 1. Articulate
-    * Game Link: https://articulate-game.herokuapp.com/
+    * Game Link: https://articulate-hoc.herokuapp.com/
     * Source Code 
         * Front-end: https://github.com/chriz218/articulate
         * Back-end: https://github.com/zhenghung/articulate-be
@@ -18,12 +18,12 @@ Socket.io-based Board game framework
 ### Installation and Quickstart
 1. Install the npm modules in your React project directory.
     ```
-    $ npm install --save git+https://git@github.com/zhenghung/soba.git socket.io-client
+    $ npm install --save git+https://git@github.com/zhenghung/soba-game.git socket.io-client
     ```
 2. Import SobaParentContainer in your highest-level component (e.g. App.js), as well as `socket.io-client`.
     ```
     import io from 'socket.io-client';
-    import {SobaParentContainer} from 'soba';
+    import {SobaParentContainer} from 'soba-game';
     ```
 3. Initialise a socket.io-client connection and modify the export default for the component as follows.
     ```
@@ -34,7 +34,7 @@ Socket.io-based Board game framework
     ```
     import React from 'react';
     import io from 'socket.io-client';
-    import {SobaParentContainer} from 'soba';
+    import {SobaParentContainer} from 'soba-game';
     function App(props){
         const {socket, socketId, gameState, 
             setGameState, broadcastGameState} = props;
