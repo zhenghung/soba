@@ -50,33 +50,6 @@ export const PostRequest = (
     });
 };
 
-export const IsWhiteTile = (gamePosition, team) => {
-    return (gamePosition[team] % 7 === 6);
-};
-
-export const WordCategoryGivenPos = (gamePosition, team) => {
-    const posMod = gamePosition[team] % 7;
-    switch (posMod) {
-        case 0:
-            return CATEGORY_OBJECT;
-        case 1:
-            return CATEGORY_ACTION;
-        case 2:
-            return CATEGORY_NATURE;
-        case 3:
-            return CATEGORY_WORLD;
-        case 4:
-            return CATEGORY_PERSON;
-        case 5:
-            return CATEGORY_RANDOM;
-        case 6:
-            return CATEGORY_ALL;
-        default:
-            console.error('GamePosition Invalid: ', gamePosition);
-            return '';
-    }
-};
-
 export const CheckEnoughPlayers = (numberOfTeams, teams, min_players_per_team) => {
     return true; // TODO: FOR DEVELOPMENT
 

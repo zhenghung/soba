@@ -6,7 +6,10 @@ import {
     SOCKET_ON_UPDATE_GAMESTATE,
 } from '../resources/properties';
 
-export function SobaParentContainer(AppComponent, socketConnect, config={}) {
+export default function SobaParentContainer(AppComponent, socketConnect, config = {}) {
+    if(socketConnect === undefined || !socketConnect) {
+        throw new Error("SobaParentContainer's 2nd argument must be a valid socket.io-client function");
+    }
     return function SobaBowl(props) {
         const [socket, setSocket] = useState(socketConnect);
         const [socketId, setSocketId] = useState('');
