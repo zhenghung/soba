@@ -1,12 +1,16 @@
 # SoBa
 Socket.io-Based web game framework
 
-### Content
-1. Example projects
-2. Installation and Quickstart
-3. Introduction
-4. Architecture
-5. GameState Design Doc
+### More Resources
+1. For a detailed description and explanation of how the games work with flowcharts and diagrams.
+    * [Framework Architecture](./Architecture.md)
+2. Guidelines for designing games based on the framework, also describes the behaviour of the higher-order components.
+    * [Game Design Document](./GameDesignDoc.md)
+
+### Introduction
+Soba is a npm module create to provide higher-order components for simplifying and streamlining the web-based social games using socket.io's communication.
+
+This architecture and flow was designed with a game in mind, but was then tweaked to be more generic to allow different turn-based games to be created this way.
 
 ### Example projects
 1. Articulate
@@ -51,91 +55,4 @@ Socket.io-Based web game framework
     export default SobaParentContainer(App, socketConnect);
     ```
    
-### Introduction
-Soba is a npm module create to provide higher-order components for simplifying and streamlining the web-based social games using socket.io's communication.
 
-This architecture and flow was designed with a game in mind, but was then tweaked to be more generic to allow different turn-based games to be created this way.
-
-### Architecture
-WIP
-
-### GameState Design Doc
-This section will outline the design of the *GAMESTATE* object that will form the basis of the socket.io powered game.
-The *GAMESTATE* object is used to synchronise the players' devices, keeping track of the current state of the game without having a database in the backend.
-
-The following will only contain **required** elements within the gamestate, other elements can be added to suit the type of game.
-
-##### Team-based games
-```
-{
-    "roomCode": {{ROOM CODE}}
-    "currentState": {{STATE OF THE GAME}}
-    "teams": [
-        [
-            {
-                "id": {{RANDOM ID}}
-                "playerName": {{NAME OF PLAYER}}
-            }
-            .
-            .
-            .
-        ]
-        .
-        .
-        .
-    ]
-}
-```
-
-
-
-
-Example of a implemented *GAMESTATE* in game
-```
-{
-    "roomCode": "951",
-    "hostName": "Potato",
-    "numberOfTeams": 2,
-    "currentState": "game",
-    "teams":[
-        [
-            {
-                "playerName":"Potato",
-                "id":"fjsanhdHDOASD"
-            },
-            {
-                "playerName":"John",
-                "id":"gjrvoeigvjSFDIOA"
-            },
-        ],
-        [
-            {
-                "playerName":"Jack",
-                "id":"879f8hNFHASOIDJ"
-            },
-            {
-                "playerName":"Pie",
-                "id":"87483021JFISOAJFD"
-            },
-        ]
-    ],
-    "turns":3,
-    "usedWords":{
-        "object":[],
-        "action":[],
-        "nature":["Rose"],
-        "world":[],
-        "person":["Harry Potter"],
-        "random":[]
-    },
-    "currentTurn":{
-        "phase":"planning",
-        "team":0,
-        "category":"object",
-        "word": "Table",
-        "describer":["John"],
-        "guesser":["Potato"]
-    },
-    "gamePositions":[0,0]
-}
-```
