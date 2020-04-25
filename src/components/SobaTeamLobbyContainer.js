@@ -15,7 +15,7 @@ export default function SobaTeamLobbyContainer(LobbyComponent, config) {
     return function LobbyTeamStrand(props) {
         const {
             socket, isHost, gameState, setGameState,
-            setPlayerTeam, playerName, broadcastGameState,
+            setPlayerTeam, playerName, playerTeam, broadcastGameState,
             playerRejectedInvalidRoomCallback, playerRejectedNameTakenCallback,
         } = props;
         const [isLoading, setIsLoading] = useState(true);
@@ -81,7 +81,7 @@ export default function SobaTeamLobbyContainer(LobbyComponent, config) {
                         setError({
                             error: true,
                             type: ERROR_PLAYER_NAME_TAKEN,
-                            message: 'Error: playerName already taken',
+                            message: 'playerName already taken',
                         });
                         if (playerRejectedNameTakenCallback !== undefined) {
                             return playerRejectedNameTakenCallback;
@@ -103,7 +103,7 @@ export default function SobaTeamLobbyContainer(LobbyComponent, config) {
                     setError({
                         error: true,
                         type: ERROR_INVALID_ROOM_CODE,
-                        message: 'Error: Invalid room code',
+                        message: 'Invalid roomCode, room doesn\'t exist',
                     });
                     if (playerRejectedInvalidRoomCallback !== undefined) playerRejectedInvalidRoomCallback();
                 }
@@ -117,7 +117,7 @@ export default function SobaTeamLobbyContainer(LobbyComponent, config) {
          * Runs for every player (including host) upon entering room
          * In hosts case, runs after retrieving the gameState
          * Defaults to Team 0
-         * @param joinPayload
+         * @param joinPayload = {isHost, playerName, socketId, roomCode}
          */
         const joinRoom = (joinPayload) => {
             socket.emit(SOCKET_EMIT_JOIN_ROOM, joinPayload, error => {
@@ -126,12 +126,38 @@ export default function SobaTeamLobbyContainer(LobbyComponent, config) {
             });
         };
 
+        /**
+         * Switch to another team
+         * Bind to a button to change the playerTeam to
+         * @param newTeam
+         */
+        const changeTeam = (newTeam) => {
+            if (newTeam !== playerTeam) {
+                setGameState(prevGameState => {
+                    let myPlayerObj = {};
+                    const {teams} = prevGameState;
+                    teams[playerTeam].forEach((player, index, object) => {
+                        if (player.playerName === playerName) {
+                            myPlayerObj = player;
+                            object.splice(index, 1);
+                        }
+                    });
+                    teams[newTeam].push(myPlayerObj);
+                    const newGameState = {...prevGameState, teams};
+                    broadcastGameState(newGameState);
+                    return newGameState;
+                });
+                setPlayerTeam(newTeam);
+            }
+        };
+
         return (
             <LobbyComponent
                 {...props}
-                joinRoom={joinRoom}
                 isLoading={isLoading}
                 error={error}
+                joinRoom={joinRoom}
+                changeTeam={changeTeam}
             />
         );
     };
