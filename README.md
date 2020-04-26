@@ -1,5 +1,11 @@
-# SoBa
-Socket.io-Based web game framework
+<img src="https://github.com/zhenghung/soba-game/raw/master/doc_images/logo.png" width=50% />
+
+# Soba
+[![npm version](https://badge.fury.io/js/soba-game.svg)](https://badge.fury.io/js/soba-game)
+
+> Soba is a simple React-based web game engine.
+> By using higher-order components, Soba manages the generic socket.io messages and injecting additional functions as props.
+> Integrating with Soba allows web games to be made more lightweight.
 
 ### More Resources
 1. For a detailed description and explanation of how the games work with flowcharts and diagrams.
@@ -14,12 +20,12 @@ This architecture and flow was designed with a game in mind, but was then tweake
 
 ### Example projects
 1. Articulate
-    * Game Link: https://articulate-hoc.herokuapp.com/
+    * Game Link: https://articulate-game.herokuapp.com/
     * Source Code 
         * Front-end: https://github.com/chriz218/articulate
         * Back-end: https://github.com/zhenghung/articulate-be
 
-### Installation and Quickstart
+### Usage and Quickstart
 1. Install the npm modules in your React project directory.
     ```
     $ npm install --save soba-game socket.io-client
@@ -54,5 +60,7 @@ This architecture and flow was designed with a game in mind, but was then tweake
     const socketConnect = io("https://mygame.game.com/", {transports: ['websocket']});
     export default SobaParentContainer(App, socketConnect);
     ```
-   
 
+### Feedback
+This is a new project and really needs more sets of eyes. Work is being done and new releases will be made. If you're having trouble getting it to work for your project, or have ideas of how it can be improved, please create an issue or get in touch with me at: 
+> zhenghung.chuah@gmail.com
