@@ -60,6 +60,9 @@ This architecture and flow was designed with a game in mind, but was then tweake
     const socketConnect = io("https://mygame.game.com/", {transports: ['websocket']});
     export default SobaParentContainer(App, socketConnect);
     ```
+ 
+ 5. Look into the GameDesignDocument for more details regarding implementing LobbyContainer and designing the gameState.
+ 6. Set up the backend server. See the [backend component to this project](https://github.com/zhenghung/soba-be).
 
 ### Feedback
 This is a new project and really needs more sets of eyes. Work is being done and new releases will be made. If you're having trouble getting it to work for your project, or have ideas of how it can be improved, please create an issue or get in touch with me at: 
