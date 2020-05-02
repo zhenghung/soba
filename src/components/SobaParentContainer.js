@@ -6,14 +6,26 @@ import {
     SOCKET_ON_UPDATE_GAMESTATE,
 } from '../resources/properties';
 
-export default function SobaParentContainer(AppComponent, socketConnect, config = {}) {
-    if(socketConnect === undefined || !socketConnect) {
-        throw new Error("SobaParentContainer's 2nd argument must be a valid socket.io-client function");
+const defaultConfig = {
+    defaultSocketId: '',
+    defaultGameState: {},
+    logging: false,
+};
+
+export default function SobaParentContainer(AppComponent, socketConnect, config) {
+    if (socketConnect === undefined || !socketConnect) {
+        throw new Error('SobaParentContainer\'s 2nd argument must be a valid socket.io-client function');
     }
+
+    config = {
+        ...defaultConfig,
+        ...config,
+    };
+
     return function SobaBowl(props) {
         const [socket, setSocket] = useState(socketConnect);
-        const [socketId, setSocketId] = useState('');
-        const [gameState, setGameState] = useState({});
+        const [socketId, setSocketId] = useState(config.defaultSocketId);
+        const [gameState, setGameState] = useState(config.defaultGameState);
 
         /** Request for a SocketId from server upon load, check connection*/
         useEffect(() => {
@@ -29,7 +41,7 @@ export default function SobaParentContainer(AppComponent, socketConnect, config 
          */
         function broadcastGameState(newGameState) {
             socket.emit(SOCKET_EMIT_BROADCAST_GAMESTATE, newGameState, () => {
-                console.log('Broadcasting GameState: ', newGameState);
+                if (config.logging) console.log('Broadcasting GameState: ', newGameState);
             });
         }
 
@@ -39,7 +51,7 @@ export default function SobaParentContainer(AppComponent, socketConnect, config 
          */
         useEffect(() => {
             socket.on(SOCKET_ON_UPDATE_GAMESTATE, (newGameState) => {
-                console.log('Updating GameState', newGameState);
+                if (config.logging) console.log('Updating GameState', newGameState);
                 setGameState(newGameState);
             });
             return () => {
@@ -51,7 +63,7 @@ export default function SobaParentContainer(AppComponent, socketConnect, config 
         useEffect(() => {
             socket.on(SOCKET_ON_SOCKETID, ({socketId}, error) => {
                 if (error) alert(error);
-                console.log('Registered SocketId: ', socketId);
+                if (config.logging) console.log('Registered SocketId: ', socketId);
                 setSocketId(socketId);
             });
             return () => {
@@ -61,6 +73,7 @@ export default function SobaParentContainer(AppComponent, socketConnect, config 
 
         return (
             <AppComponent
+                {...props}
                 socket={socket}
                 setSocket={setSocket}
                 socketId={socketId}

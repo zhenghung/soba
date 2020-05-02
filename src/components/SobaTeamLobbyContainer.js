@@ -11,14 +11,25 @@ import {
 } from '../resources/properties';
 import {CheckTeamsContainPlayer} from './util';
 
+const defaultConfig = {
+    defaultIsLoading: true,
+    logging: false,
+};
+
 export default function SobaTeamLobbyContainer(LobbyComponent, config) {
+
+    config = {
+        ...defaultConfig,
+        ...config,
+    };
+
     return function LobbyTeamStrand(props) {
         const {
             socket, isHost, gameState, setGameState,
             setPlayerTeam, playerName, playerTeam, broadcastGameState,
             playerRejectedInvalidRoomCallback, playerRejectedNameTakenCallback,
         } = props;
-        const [isLoading, setIsLoading] = useState(true);
+        const [isLoading, setIsLoading] = useState(config.defaultIsLoading);
         const [error, setError] = useState({error: false, type: '', message: ''});
         const gameStateRef = React.useRef(gameState);
 
@@ -39,7 +50,7 @@ export default function SobaTeamLobbyContainer(LobbyComponent, config) {
         useEffect(() => {
             socket.on(SOCKET_ON_PLAYER_JOINED, (res) => {
                 if (isHost) {
-                    console.log('New Joiner: ', res.playerName);
+                    if(config.logging) console.log('New Joiner: ', res.playerName);
                     if (res.isHost) {
                         setGameState(prevGameState => {
                             const {teams} = prevGameState;
@@ -155,6 +166,7 @@ export default function SobaTeamLobbyContainer(LobbyComponent, config) {
             <LobbyComponent
                 {...props}
                 isLoading={isLoading}
+                setIsLoading={setIsLoading}
                 error={error}
                 joinRoom={joinRoom}
                 changeTeam={changeTeam}

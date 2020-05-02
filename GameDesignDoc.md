@@ -3,17 +3,26 @@ SobaParentContainer is the core parent higher-order component. It initialises a 
 
 ### Content
 1. [SobaParentContainer](#sobaparentcontainer)
-2. [SobaTeamLobbyContainer](#sobateamlobbycontainer)
-3. [GameState Design](#gamestate-design)
+2. [InjectTeamProps](#injectteamprops)
+3. [SobaTeamLobbyContainer](#sobateamlobbycontainer)
+4. [GameState Design](#gamestate-design)
 
 ### SobaParentContainer
 Higher-order component wrapper function
+
+>SobaParentContainer is a higher-order function that wraps the main highest-level 
+>component with socket.io listeners and functions to broadcast the gameState.
+>It produces the SobaBowl component which initialises a few hooks and sets up the listeners.
+>This function is core in every implementation of this engine. 
+
 ```
-SobaParentContainer(App, socketConnect)
+SobaParentContainer(App, socketConnect, config)
 ```
 `App` : Parent component for the application
 
 `socketConnect`: Second argument required for this function, this is the socket.io-client object initialised with a backend and transport type
+
+`config`: Optional config object argument
 
 Example: 
 ```
@@ -38,13 +47,81 @@ export default SobaParentContainer(App, socketConnect);
         ]
     }
     ```
+  
+#### Configuration (Optional)
+```
+const config = {
+    defaultSocketId: '',
+    defaultGameState: {},
+    logging: false,
+}
+export default SobaParentContainer(App, socketConnect, config);
+```
+Only pass in the elements you wish to change.
+
+Example: `export default SobaParentContainer(App, socketConnect, {logging: true);`
+
+### InjectTeamProps
+Higher-order component wrapper function
+
+>withTeamProps is a wrapper function which purely injects the component with addition 
+>team-specific hooks as props. The props passed in here will be required if SobaTeamLobbyContainer is to be used.
+>Note that you shouldn't reused the names here in your game design as it'll conflict with the existing props.
+
+```
+withTeamProps(AppComponent, config)
+```
+`AppComponent` : Parent component for the application
+
+`config`: Optional config object argument
+
+Example: 
+```
+export default withTeamProps(AppComponent);
+```
+#### Injected props
+* `isHost` : isHost hook defaulted to `false`
+* `setIsHost` : setState for isHost
+* `playerName` : playerName hook defaulted to `''`
+* `setPlayerName` : setState for playerName
+* `playerTeam` : playerTeam hook defaulted to `0`
+* `setPlayerTeam` : setState for playerTeam
+* `numberOfTeams` : numberOfTeams hook defaulted to `2`
+* `setNumberOfTeams` : setState for numberOfTeams
+* `roomCode` : roomCode hook defaulted to `''`
+* `setRoomCode` : setState for roomCode
+  
+#### Configuration (Optional)
+```
+const config = {
+    defaultRoomCode: '',
+    defaultIsHost: false,
+    defaultPlayerName: '',
+    defaultTeam: 0,
+    defaultNumberOfTeams: 2,
+}
+export default withTeamProps(App, config);
+```
+Only pass in the elements you wish to change.
+
+Example: `export default withTeamProps(App, {defaultNumberOfTeams: 4});`
+
+
 
 ### SobaTeamLobbyContainer
 Higher-order component wrapper function
+
+>SobaTeamLobbyContainer is a HOC (Higher-order function) that wraps the lobby component.
+>It sets up socket listeners for joining rooms, provides the host with functions and rejects
+>players with an invalid roomCode or is using a name that's already taken.
+>Props required here are injected and provided by withTeamProps.
+
 ```
-SobaTeamLobbyContainer(LobbyComponent)
+SobaTeamLobbyContainer(LobbyComponent, config)
 ```
 `LobbyComponent` : Lobby component for the application, designed to be a child of the Parent component
+
+`config`: Optional config object argument
 
 The LobbyComponent itself must contain the following props received from its parent:
 * `socket` : Injected from SobaParentContainer
@@ -93,6 +170,18 @@ The LobbyComponent itself must contain the following props received from its par
     ```
     newTeam: <(int) value that is the index of the team in gameState.teams the player wishes to change to>
     ```
+
+#### Configuration (Optional)
+```
+const config = {
+    defaultIsLoading: false,
+    logging: false,
+}
+export default SobaTeamLobbyContainer(LobbyComponent, config);
+```
+Only pass in the elements you wish to change.
+
+Example: `export default SobaTeamLobbyContainer(LobbyComponent, {logging: true);`
 
 
 ### GameState Design
