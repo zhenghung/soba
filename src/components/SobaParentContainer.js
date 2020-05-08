@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {
     SOCKET_EMIT_BROADCAST_GAMESTATE,
+    SOCKET_EMIT_LEAVE_ROOM,
     SOCKET_EMIT_SOCKETID,
     SOCKET_ON_SOCKETID,
     SOCKET_ON_UPDATE_GAMESTATE,
@@ -71,6 +72,15 @@ export default function SobaParentContainer(AppComponent, socketConnect, config)
             };
         });
 
+        /**
+         * Leave socket.io room
+         * @param roomCode
+         * @param callback Function run after emitting socket message
+         */
+        function leaveRoom(roomCode, callback) {
+            socket.emit(SOCKET_EMIT_LEAVE_ROOM, roomCode, callback);
+        }
+
         return (
             <AppComponent
                 {...props}
@@ -81,6 +91,7 @@ export default function SobaParentContainer(AppComponent, socketConnect, config)
                 gameState={gameState}
                 setGameState={setGameState}
                 broadcastGameState={broadcastGameState}
+                leaveRoom={leaveRoom}
             />
         );
     };

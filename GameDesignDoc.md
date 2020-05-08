@@ -36,6 +36,10 @@ export default SobaParentContainer(App, socketConnect);
 * `setSocketId` : setState for socketId
 * `gameState` : Main object for tracking game's current state (see [section](#gamestate-design) for more details)
 * `setGameState` : setState for gameState
+* `leaveRoom` : function to emit the leaveRoom message to the server, disconnecting from the socket.io room
+    * Parameters :
+        * roomCode : roomCode used in socket.io that the client is in
+        * callback : Callback function expressed as anonymous function
 * `broadcastGameState` : function to emit the updatedGameState to every connected client within the room
     * Parameter (only one): (see [section](#gamestate-design) for more details) 
     ```
